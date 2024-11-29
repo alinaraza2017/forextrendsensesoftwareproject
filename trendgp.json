@@ -1,0 +1,6 @@
+[
+    { "time": "Today", "trend": "USD to EUR increased by 0.5%", "value": "+0.5%" },
+    { "time": "Yesterday", "trend": "USD to GBP decreased by 0.2%", "value": "-0.2%" },
+    { "time": "7D", "trend": "JPY to USD stable at 150.3", "value": "0%" }
+  ]
+  

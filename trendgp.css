@@ -1,0 +1,111 @@
+.currency-trends {
+    background: #fff;
+    box-shadow: 0 3px 6px rgba(18, 15, 40, 0.12);
+    overflow: hidden;
+    width: 100%; /* Full width of the screen */
+  }
+  
+  .layout-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  }
+  
+  .sidebar {
+    width: 20%; /* Default width */
+    min-width: 250px; /* Minimum width for readability */
+    background: #fff;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 32px 16px 20px;
+  }
+  
+  .main-content {
+    flex: 1; /* Take remaining space */
+    min-width: 300px; /* Ensure usability on smaller screens */
+  }
+  
+  .top-header {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 16px 20px; /* Reduced padding for smaller screens */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap; /* Wrap elements on smaller screens */
+  }
+  
+  .search-wrapper {
+    display: flex;
+    gap: 6px;
+    background: #f3f4f6;
+    border-radius: 6px;
+    padding: 7px 12px;
+    flex-grow: 1; /* Adjust width dynamically */
+  }
+  
+  .stats-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Ensure cards stack on smaller screens */
+    margin-top: 20px;
+  }
+  
+  .overview-card,
+  .statistics-card {
+    flex: 1 1 calc(100% - 20px); /* Full width for smaller screens */
+    max-width: 48%; /* Limit to half screen for larger screens */
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 24px;
+  }
+  
+  .chart-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-direction: column; /* Ensure stacked layout for smaller screens */
+  }
+  
+  .chart-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  @media (max-width: 991px) {
+    .layout-wrapper {
+      flex-direction: column; /* Stack sidebar and content */
+    }
+  
+    .sidebar {
+      width: 100%;
+    }
+  
+    .top-header {
+      flex-direction: column; /* Stack elements */
+    }
+  
+    .stats-grid {
+      flex-direction: column;
+    }
+  
+    .overview-card,
+    .statistics-card {
+      max-width: 100%; /* Full width */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .top-header {
+      padding: 10px;
+    }
+  
+    .search-wrapper {
+      flex-direction: column; /* Stack input and icon */
+    }
+  
+    .filter-btn {
+      font-size: 12px; /* Smaller font size for buttons */
+      padding: 5px 10px;
+    }
+  }
+  

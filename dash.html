@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+  <script src="script2.js"></script>
+
+
+<style>
+/* Centered Auth Container */
+    #auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .auth-box {
+      background: #fff;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .auth-box h2 {
+      margin-bottom: 20px;
+      color: #636ae8;
+    }
+
+    .auth-box form input {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .auth-box form button {
+      width: 100%;
+      padding: 10px;
+      color: white;
+      background: #636ae8;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .auth-box .toggle-form a {
+      color: #636ae8;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .auth-box .toggle-form {
+      margin-top: 10px;
+    }
+
+</style>
+
+
+<style>
+    .dashboard-wrapper {
+      background: #fff;
+      box-shadow: 0 3px 6px rgba(18,15,40,.12);
+      padding: 0 0 12px 8px;
+      overflow: hidden;
+    }
+    
+    .layout-container {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .sidebar {
+      width: 20%;
+      background: #fff;
+      box-shadow: 0 0 2px rgba(23,26,31,.12);
+      padding: 20px 16px;
+    }
+    
+    .logo {
+      color: #171a1f;
+      font: 24px 'Abril Fatface', serif;
+    }
+    
+    .nav-menu {
+      margin-top: 59px;
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      color: #565e6c;
+      font: 14px/2 'Inter', sans-serif;
+    }
+    
+    .nav-item {
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      align-items: center;
+    }
+    
+    .nav-item.active {
+      background: #636ae8;
+      color: #fff;
+      font-weight: 700;
+    }
+    
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .settings-link {
+      margin-top: 59px;
+      border-radius: 6px;
+      background: #fff;
+      padding: 8px 26px;
+      color: #323842;
+      font: 700 16px/2 'Archivo', sans-serif;
+      text-align: center;
+    }
+    
+    .main-content {
+      width: 80%;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px 0 80px;
+      background: #fff;
+      box-shadow: 0 0 2px rgba(23,26,31,.12);
+    }
+    
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      color: #636ae8;
+      font: 700 24px 'Archivo', sans-serif;
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .search-form {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      padding: 7px 12px;
+    }
+    
+    .search-input {
+      border: 0;
+      background: transparent;
+      color: #bcc1ca;
+      font: 14px/2 'Inter', sans-serif;
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+    }
+    
+    .dashboard-stats {
+      margin-top: 31px;
+      padding: 0 27px;
+    }
+    
+    .total-amount {
+      color: #171a1f;
+      font: 700 32px 'Archivo', sans-serif;
+      margin-left: 17px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 16px;
+    }
+    
+    .stat-card {
+      border-radius: 6px;
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .stat-card--trend {
+      background: #f2f2fd;
+    }
+    
+    .stat-card--risk {
+      background: #dee1e6;
+    }
+    
+    .stat-card--prediction {
+      background: #e6b5a1;
+    }
+    
+    .stat-card--sentiment {
+      background: #fdf1f5;
+    }
+    
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .stat-title {
+      color: #171a1f;
+      font: 700 32px/48px 'Archivo', sans-serif;
+    }
+    
+    .stat-value {
+      color: #117b34;
+      font: 700 14px/2 'Inter', sans-serif;
+    }
+    
+    .data-table {
+      margin-top: 48px;
+      border: 1px solid #dee1e6;
+      border-radius: 6px;
+    }
+    
+    .table-header {
+      background: #f8f9fa;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 13px;
+      color: #565e6c;
+      font: 600 14px/2 'Archivo', sans-serif;
+    }
+    
+    .table-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 20px 12px;
+      border-top: 1px solid #f3f4f6;
+      font: 14px/2 'Inter', sans-serif;
+    }
+    
+    .currency-cell {
+      font-weight: 700;
+    }
+    
+    .status-tag {
+      display: inline-flex;
+      padding: 4px 7px;
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 2;
+    }
+    
+    .status-tag--new {
+      background: #f1f8fd;
+      color: #379ae6;
+    }
+    
+    .status-tag--yesterday {
+      background: #fef9ee;
+      color: #98690c;
+    }
+    
+    .chart-section {
+      margin-top: 68px;
+      padding: 0 49px;
+    }
+    
+    .chart-title {
+      color: #171a1f;
+      font: 700 20px 'Archivo', sans-serif;
+    }
+    
+    .chart-legend {
+      display: flex;
+      gap: 20px;
+      margin-top: 28px;
+      font: 14px/2 'Inter', sans-serif;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    .legend-dot--today {
+      background: #636ae8;
+    }
+    
+    .legend-dot--yesterday {
+      background: #ced0f8;
+    }
+    
+    .chart-container {
+      position: relative;
+      margin-top: 28px;
+    }
+    
+    .chart-tooltip {
+      position: absolute;
+      background: #fff;
+      box-shadow: 0 0 2px rgba(23,26,31,.12);
+      border-radius: 6px;
+      padding: 15px;
+    }
+    
+    .tooltip-header {
+      display: flex;
+      justify-content: space-between;
+      color: #323842;
+      font: 700 16px/2 'Archivo', sans-serif;
+    }
+    
+    .tooltip-value {
+      color: #171a1f;
+      font: 700 14px/2 'Inter', sans-serif;
+    }
+    
+    @media (max-width: 991px) {
+      .layout-container {
+        flex-direction: column;
+      }
+      
+      .sidebar,
+      .main-content {
+        width: 100%;
+      }
+      
+      .nav-menu {
+        margin-top: 40px;
+      }
+      
+      .settings-link {
+        margin-top: 40px;
+        padding: 100px 20px 0;
+      }
+      
+      .header {
+        padding: 0 20px;
+      }
+      
+      .dashboard-stats {
+        padding: 0 20px;
+      }
+      
+      .total-amount {
+        margin-left: 10px;
+      }
+      
+      .chart-section {
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+
+      .nav-item.active {
+        background-color: #ebd0d0; /* Example active background */
+        font-weight: bold;
+      }
+    }
+    </style>
+
+
+  </head>
+
+  <body>
+
+   <!-- Authentication Section -->
+<div id="auth-container">
+    <div class="auth-box" id="login-box">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p class="toggle-form">Forgot password? <a id="show-reset-password">Reset here</a></p>
+        <p class="toggle-form">Don't have an account? <a id="show-register">Register here</a></p>
+    </div>
+
+    <div class="auth-box" id="register-box" style="display: none;">
+        <h2>Register</h2>
+        <form id="register-form">
+            <input type="email" id="reg-email" placeholder="Enter your email" required>
+            <input type="password" id="reg-password" placeholder="Create a password" required>
+            <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p class="toggle-form">Already have an account? <a id="show-login-register">Login here</a></p>
+    </div>
+
+    <div class="auth-box" id="reset-password-box" style="display: none;">
+        <h2>Reset Password</h2>
+        <form id="reset-password-form">
+            <input type="email" id="reset-email" placeholder="Enter your registered email" required>
+            <button type="submit">Reset Password</button>
+        </form>
+        <p class="toggle-form">Remembered your password? <a id="show-login-reset">Login here</a></p>
+    </div>
+</div>
+
+<!-- Dashboard Section (Initially hidden until login) -->
+<section class="dashboard-wrapper" id="dashboard-container" style="display: none;">
+    <!-- Your dashboard content here, such as sidebar, header, stats, etc. -->
+
+
+    
+    <section class="dashboard-wrapper">
+      <div class="layout-container">
+        <aside class="sidebar">
+          <h1 class="logo">FOREXTRENDSENSE</h1>
+          
+          <nav class="nav-menu" aria-label="Main navigation">
+            <a href="#" class="nav-item active">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/3a5a531e373b418bdc9907e213c68c9a6b6fcb874867f819ebd58685bfa69ab0?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/e1c945c33025a97c0736d9485f08ae10442f238068ef3f566011fb1f39580259?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Profit Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/8bfe336e7f7d93a05dca12c5e3b23b73bc804b5c9f4fdada301b7e59f7c40ae8?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Teams</span>
+            </a>
+            <a href="#" class="nav-item">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/1b44b57da889d57b7c180e343aa186ff54452daa77e729451c880d71758be87f?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-item">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/d52abcaaae01e4bf4e8f5988e0ccfaa245d076d577fa460e3aec94545282cc5e?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Messages</span>
+            </a>
+            <a href="#" class="nav-item">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/77c0b2ee42a8b5e9efb1b11d03c042accffe3e1aa427293a6beba7855e9bf72c?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Guide</span>
+            </a>
+          </nav>
+    
+          <a href="#" class="settings-link">Settings</a>
+        </aside>
+    
+        <main class="main-content">
+          <header class="header">
+            <h2 class="page-title">
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/a5067dc7fd734c8a67f850d673f83441b9238a32a26c74759a3a67f3a75120aa?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              <span>Dashboard</span>
+            </h2>
+    
+            <div class="header-actions">
+              <form class="search-form" role="search">
+              </form>
+            
+
+              <div class="header-actions">
+                <form class="search-form" role="search">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/ec16e15dba29df88129fe7683b9e99890b59b0c11814d5b55cf68611aeabf6c5?apiKey=401d76c0807e4a6c8034a79150554836&" 
+                       alt="Search" class="nav-icon" />
+                  <input type="search" class="search-input" placeholder="Search..." aria-label="Search" />
+                </form>
+              
+                <style>
+                .header-actions {
+                  position: relative; /* Ensures dropdown is positioned relative to this container */
+                  display: flex;
+                  align-items: center;
+                }
+                
+                .notification-btn {
+                  position: relative;
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                }
+                
+                .notification-count {
+                  position: absolute;
+                  top: -5px;
+                  right: -5px;
+                  background-color: red;
+                  color: white;
+                  font-size: 12px;
+                  border-radius: 50%;
+                  padding: 2px 6px;
+                  display: inline-block;
+                }
+                
+                .notification-dropdown {
+                  position: absolute;
+                  top: 100%;
+                  right: 0;
+                  background-color: white;
+                  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                  border-radius: 4px;
+                  z-index: 10;
+                  width: 250px;
+                  padding: 10px;
+                }
+                
+                .notification-dropdown ul {
+                  list-style: none;
+                  margin: 0;
+                  padding: 0;
+                }
+                
+                .notification-dropdown li {
+                  padding: 8px 10px;
+                  border-bottom: 1px solid #ddd;
+                }
+                
+                .notification-dropdown li:last-child {
+                  border-bottom: none;
+                }
+                
+                .notification-dropdown li:hover {
+                  background-color: #f5f5f5;
+                  cursor: pointer;
+                }
+              </style>                  
+
+
+                <button id="notifications" aria-label="Notifications" class="notification-btn">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/ac6cad9b5dc292bee961eccee71951bdfde98ef48b575560c94507f6935e1bbb?apiKey=401d76c0807e4a6c8034a79150554836&" 
+                       alt="Notifications" class="nav-icon" />
+                  <span id="notification-count" class="notification-count">3</span>
+                </button>
+              
+                <div id="notification-dropdown" class="notification-dropdown" style="display: none;">
+                  <ul>
+                    <li>New user registered</li>
+                    <li>System maintenance scheduled</li>
+                    <li>New message from Admin</li>
+                  </ul>
+                </div>
+              </div>
+              
+            
+
+
+              <button type="button" aria-label="Messages">
+                <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/7e1a4912c719ca0241e5815d6769c8af771e19d4119f008dbcbda2090a9a3043?apiKey=401d76c0807e4a6c8034a79150554836&" alt="" class="nav-icon" />
+              </button>
+              
+              <img src="https://cdn.builder.io/api/v1/image/assets/401d76c0807e4a6c8034a79150554836/166206dfbc24a41b41181b77c1056164e890e798a56c42da58079f42118d2836?apiKey=401d76c0807e4a6c8034a79150554836&" alt="profile" class="user-avatar" />
+              </form>
+            </div>
+          </header>
+
+    
+          <section class="dashboard-stats">
+            <p class="total-amount">$92,405</p>
+    
+            <div class="stats-grid">
+              <article class="stat-card stat-card--trend">
+                <div class="stat-header">
+                  <h3 class="stat-title">Currency<br>Trend</h3>
+                  
+                  <button class="dashboard-btn">
+                    <a href="trendgp.html" class="dashboard-link">View</a>
+                  </button>
+                </div>
+              </article>
+    
+              <article class="stat-card stat-card--risk">
+                <div class="stat-header">
+                  <h3 class="stat-title">Risk Rate</h3>
+                  <button type="button" class="btn-view">View</button>
+                </div>
+                <p class="stat-value">1.39% low risk</p>
+              </article>
+    
+              <article class="stat-card stat-card--prediction">
+                <div class="stat-header">
+                  <h3 class="stat-title">Prediction Chart</h3>
+                  <button type="button" class="btn-view">View</button>
+                </div>
+              </article>
+    
+              <article class="stat-card stat-card--sentiment">
+                <div class="stat-header">
+                  <h3 class="stat-title">Sentiment Analysis</h3>
+                  <button type="button" class="btn-view">View</button>
+                </div>
+                <p class="stat-value">5.39% positive</p>
+              </article>
+            </div>
+    
+            <table class="data-table" role="grid">
+              <thead>
+                <tr class="table-header">
+                  <th scope="col">CURRENCY</th>
+                  <th scope="col">ORDER VALUE</th>
+                  <th scope="col">ORDER DATE</th>
+                  <th scope="col">STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-row">
+                  <td class="currency-cell">USD</td>
+                  <td>$359</td>
+                  <td>10/07/2024</td>
+                  <td><span class="status-tag status-tag--new">New</span></td>
+                </tr>
+                <tr class="table-row">
+                  <td class="currency-cell">UED</td>
+                  <td>$747</td>
+                  <td>10/07/2024</td>
+                  <td><span class="status-tag status-tag--new">New</span></td>
+                </tr>
+                <tr class="table-row">
+                  <td class="currency-cell">RUPEE</td>
+                  <td>$564</td>
+                  <td>09/07/2024</td>
+                  <td><span class="status-tag status-tag--yesterday">Yesterday</span></td>
+                </tr>
+                <tr class="table-row">
+                  <td class="currency-cell">JPY</td>
+                  <td>$541</td>
+                  <td>09/07/2024</td>
+                  <td><span class="status-tag status-tag--yesterday">Yesterday</span></td>
+                </tr>
+              </tbody>
+            </table>
+    
+            
+              
+
+              
+              
+             
+
+              <style>
+                .hero-image {
+                  aspect-ratio: 2.38;
+                  object-fit: contain;
+                  object-position: center;
+                  width: 100%;
+                }
+                
+                .visually-hidden {
+                  position: absolute;
+                  width: 1px;
+                  height: 1px;
+                  padding: 0;
+                  margin: -1px;
+                  overflow: hidden;
+                  clip: rect(0, 0, 0, 0);
+                  white-space: nowrap;
+                  border: 0;
+                }
+                </style>
+                
+            </section>
+          </section>
+        </main>
+      </div>
+    </section>
+</section>
+
+
+
+  </body>
+
+</html>

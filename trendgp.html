@@ -1,0 +1,565 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- jsPDF library -->
+</head>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="trendgpp.css">
+
+<section class="currency-trends" role="main" aria-label="Currency Trends Dashboard">
+    <div class="layout-wrapper">
+      <aside class="sidebar" role="complementary">
+        <div class="sidebar-content">
+          <h1 class="brand-title">FOREXTRENDSENSE</h1>
+          <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+            <ul class="nav-list">
+              <li><a href="#" class="nav-item nav-active" aria-current="page">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2a9c47407f89524e7134e0cbef933b0790de770552d07744a159a04e2f2b1540?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="nav-icon" />
+                <span>Dashboard</span>
+              </a></li>
+              <li><a href="#" class="nav-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a28d0272ee5350889a4111815c62a8f678555e8855013395d2b70f2d55562e5e?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="nav-icon" />
+                <span>Profit Reports</span>
+              </a></li>
+              <li><a href="#" class="nav-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/157d7fe34b29bad123358c5fd4cfa695f6f7027d9c14f2163fd204de6498ef93?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="nav-icon" />
+                <span>Teams</span>
+              </a></li>
+              <li><a href="#" class="nav-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4f86d2de692fcc28bc801dfd3d2e5135a63222c5d0bc68aa167c8af1b804658a?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="nav-icon" />
+                <span>Analytics</span>
+              </a></li>
+              <li><a href="#" class="nav-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/60a2968484af530bc9b3ad518a14442dfef6787b3bd9d35422390328a913a5e1?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="nav-icon" />
+                <span>Messages</span>
+              </a></li>
+              <li><a href="#" class="nav-item">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7f3685d4187aa2c310a241c2cad4480241e5da943e2ff21714f5fa8254b9cb38?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="nav-icon" />
+                <span>Guide</span>
+              </a></li>
+            </ul>
+          </nav>
+          <div class="settings-wrapper">settings</div>
+        </div>
+      </aside>
+  
+      <main class="main-content">
+        <header class="top-header">
+          <form class="search-form" role="search">
+            <label for="search" class="visually-hidden">Search</label>
+            <div class="search-wrapper">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d394f408ab268af8bd0d517bf6e209e149ac4e0a187f59219bc591e3c239821d?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="search-icon" />
+              <input type="search" id="search" class="search-input" placeholder="Search..." />
+            </div>
+          </form>
+          <div class="header-actions">
+            <button class="notification-btn" aria-label="Notifications">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b31921b09c67788dcbbb59a0a4970498dc3f76cbeafe22660544620198d9218f?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" />
+            </button>
+            <button class="messages-btn" aria-label="Messages">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b43588e0103bc14e9d96fadd06f00859c76ff6b5d5ae8fbc269cfd3a1903b6cc?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" />
+            </button>
+            <button class="profile-btn" aria-label="Profile">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a104f4d7b61128a3fbdd20706b9381ced34590dd593e7a96bc6e325dc348332e?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="User profile" />
+            </button>
+          </div>
+        </header>
+  
+        <section class="trends-section">
+          <h2 class="section-title">CURRENCY TRENDS</h2>
+          <h3 class="balance-title">Your Profit Balance</h3>
+          
+          <div class="balance-wrapper">
+            <p class="balance-amount">$92,405</p>
+            <div class="time-filters" role="group" aria-label="Time period filters">
+              <button class="filter-btn">Today</button>
+              <button class="filter-btn">Yesterday</button>
+              <button class="filter-btn active">7 D</button>
+              <button class="filter-btn">30 D</button>
+              <button class="filter-btn">3 M</button>
+              <button class="filter-btn">6 M</button>
+              <button class="filter-btn">12 M</button>
+            </div>
+          </div>
+          
+
+          <div class="time-filters" role="group" aria-label="Time period filters">
+            <button class="filter-btn" onclick="fetchData()">Refresh</button>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="trendChart"></canvas>
+      </div>
+
+
+
+
+          <div class="stats-grid">
+            <section class="overview-card" aria-labelledby="overview-title">
+              <h4 id="overview-title" class="card-title">Overview</h4>
+              <div class="stat-items">
+                <article class="stat-item">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/55cb5fc5284a9af1d9a704ed860e9229163ecbb209ae4e0ae881becb95c52e02?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="stat-icon" />
+                  <div class="stat-content">
+                    <p class="stat-label">Data label</p>
+                    <p class="stat-value">$152k</p>
+                  </div>
+                  <div class="stat-indicator positive"></div>
+                </article> 
+
+
+
+                
+                <article class="stat-item">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1779a47d60fc140dad1a107c911164639f2aec7164ae79b294fb29d3a869ee0d?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="stat-icon" />
+                  <div class="stat-content">
+                    <p class="stat-label">Data label</p>
+                    <p class="stat-value">$82k</p>
+                  </div>
+                  <div class="stat-indicator negative"></div>
+                </article>
+  
+                <article class="stat-item">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/72e4a140f30be9c14ea557d376cce7a8b754ba95cad6c1d4f412f0de6a24b9ae?placeholderIfAbsent=true&apiKey=8ae2ee4e075744a2b3ee47e2e3795a92" alt="" class="stat-icon" />
+                  <div class="stat-content">
+                    <p class="stat-label">Data label</p>
+                    <p class="stat-value">2,140</p>
+                  </div>
+                  <div class="stat-indicator negative"></div>
+                </article>
+              </div>
+            </section>
+     
+
+          <script src="trendgp.js"></script>
+
+          <div id="generate-report-container">
+            <button id="generate-report-btn" class="report-btn">Generate Trend Report</button>
+        </div>
+
+          <script>
+          // Function to generate the Trend Report PDF
+function generateTrendReport() {
+    const { jsPDF } = window.jspdf; // Initialize jsPDF
+
+    // Create a new PDF document
+    const doc = new jsPDF();
+
+    // Add Title
+    doc.setFontSize(18);
+    doc.text("Currency Trend Report", 20, 20);
+
+    // Add Date
+    doc.setFontSize(12);
+    const currentDate = new Date().toLocaleString();
+    doc.text("Report Date: " + currentDate, 20, 30);
+
+    // Add Currency Trend Data (From the current chart)
+    const labels = trendChart.data.labels;
+    const data = trendChart.data.datasets[0].data;
+
+    // Prepare data to display in PDF
+    let yPosition = 40;
+    doc.text("Currency Trends:", 20, yPosition);
+    yPosition += 10;
+    labels.forEach((label, index) => {
+        const text = `${label}: ${data[index]} USD`;
+        doc.text(text, 20, yPosition);
+        yPosition += 10;
+    });
+
+    // Save the PDF
+    doc.save('trend-report.pdf');
+}
+
+// Create the "Generate Trend Report" button dynamically
+const reportButton = document.createElement("button");
+reportButton.textContent = "Generate Trend Report";
+reportButton.className = "report-btn";  // You can add this class to style the button
+
+// Add the event listener for button click
+reportButton.addEventListener("click", generateTrendReport);
+
+// Append the button at the bottom of the page (in the body or a specific container)
+document.body.appendChild(reportButton);
+</script>
+
+<style>
+/* Styling for the Report Button */
+.report-btn {
+    background-color: #636ae8;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure the button is on top of other elements */
+    transition: background-color 0.3s ease;
+}
+
+.report-btn:hover {
+    background-color: #4e59b6;
+}
+</style>
+
+      </main>
+    </div>
+  </section>
+  
+  <style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  
+  .currency-trends {
+    background: #fff;
+    box-shadow: 0 3px 6px rgba(18, 15, 40, 0.12);
+    overflow: hidden;
+  }
+  
+  .layout-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .sidebar {
+    width: 20%;
+    background: #fff;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 32px 16px 20px;
+  }
+  
+  .brand-title {
+    color: #171a1f;
+    font: 24px 'Abril Fatface', sans-serif;
+    margin: 0 0 12px;
+  }
+  
+  .nav-menu {
+    margin-top: 12px;
+  }
+  
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-item {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    color: #565e6c;
+    text-decoration: none;
+    font: 14px/2 'Inter', sans-serif;
+    margin-bottom: 17px;
+    align-items: center;
+  }
+  
+  .nav-active {
+    background: #636ae8;
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .settings-wrapper {
+    margin-top: 105px;
+    padding: 8px 26px;
+    border-radius: 6px;
+    background: #fff;
+    color: #323842;
+    font: 700 16px/2 'Archivo', sans-serif;
+    text-align: left;
+  }
+  
+  .main-content {
+    width: 70%;
+  }
+  
+  .top-header {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 16px 28px 16px 80px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .search-form {
+    flex-grow: 1;
+  }
+  
+  .search-wrapper {
+    display: flexbox;
+    gap: 6px;
+    background: #f3f4f6;
+    border-radius: 6px;
+    padding: 7px 12px;
+    border: 1px solid transparent;
+    flex-grow: 1;
+  }
+  
+  .search-input {
+    border: none;
+    background: transparent;
+    color: #bcc1ca;
+    font: 14px/2 'Inter', sans-serif;
+    width: 100%;
+  }
+  
+  .search-input::placeholder {
+    color: #bcc1ca;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .notification-btn,
+  .messages-btn,
+  .profile-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .profile-btn img {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+  }
+  
+  .trends-section {
+    padding: 0 17px;
+    margin-top: 13px;
+  }
+  
+  .section-title {
+    color: #636ae8;
+    font: 700 32px 'Archivo', sans-serif;
+    margin: 0 0 66px 31px;
+  }
+  
+  .balance-title {
+    color: #171a1f;
+    font: 700 20px 'Archivo', sans-serif;
+    margin: 0 0 21px 31px;
+  }
+  
+  .balance-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1043px;
+    margin: 0 auto;
+  }
+  
+  .balance-amount {
+    color: #171a1f;
+    font: 700 32px 'Archivo', sans-serif;
+    margin: 0;
+  }
+  
+  .time-filters {
+    display: flex;
+    border-radius: 9px;
+    border: 1px solid #fff;
+    overflow: hidden;
+  }
+  
+  .filter-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #636ae8;
+    font: 14px/2 'Inter', sans-serif;
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+  .filter-btn.active {
+    background: #636ae8;
+    color: #fff;
+  }
+  
+  .stats-grid {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .overview-card {
+    width: 100%;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 24px;
+  }
+  
+  .statistics-card {
+    width: 69%;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 2px rgba(23, 26, 31, 0.12);
+    padding: 24px;
+  }
+  
+  .card-title {
+    color: #323842;
+    font: 700 20px 'Archivo', sans-serif;
+    margin: 0 0 24px;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .view-all-btn {
+    background: none;
+    border: none;
+    color: #636ae8;
+    font: 16px/2 'Inter', sans-serif;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .stat-items {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 23px;
+    border: 1px solid #f3f4f6;
+    border-radius: 6px;
+  }
+  
+  .stat-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 29px;
+    box-shadow: 0 0 2px rgba(242, 242, 253, 0.12);
+  }
+  
+  .stat-content {
+    flex-grow: 1;
+  }
+  
+  .stat-label {
+    color: #323842;
+    font: 16px/2 'Inter', sans-serif;
+    margin: 0;
+  }
+  
+  .stat-value {
+    color: #171a1f;
+    font: 600 24px 'Archivo', sans-serif;
+    margin: 4px 0 0;
+  }
+  
+  .stat-indicator {
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+  }
+  
+  .stat-indicator.positive {
+    background: #eefdF3;
+  }
+  
+  .stat-indicator.negative {
+    background: #fdf2f2;
+  }
+  
+  .chart-wrapper {
+    display: flex;
+    gap: 33px;
+    margin-top: 33px;
+  }
+  
+  .chart-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 59px;
+    color: #6e7787;
+    font: 14px/2 'Inter', sans-serif;
+    text-align: right;
+  }
+  
+  .chart-image {
+    flex-grow: 1;
+    height: auto;
+  }
+  
+  @media (max-width: 991px) {
+    .layout-wrapper {
+      flex-direction: column;
+    }
+    
+    .sidebar,
+    .main-content {
+      width: 100%;
+    }
+    
+    .settings-wrapper {
+      margin-top: 40px;
+      padding: 100px 20px 0;
+    }
+    
+    .top-header {
+      padding: 0 20px;
+    }
+    
+    .section-title,
+    .balance-title {
+      margin-left: 10px;
+    }
+    
+    .stats-grid {
+      flex-direction: column;
+    }
+    
+    .overview-card,
+    .statistics-card {
+      width: 100%;
+    }
+    
+    .chart-labels {
+      display: none;
+    }
+    
+    .chart-image {
+      max-width: 100%;
+    }
+  }
+  </style>
+
